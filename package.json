@@ -1,0 +1,41 @@
+{
+  "name": "react-first",
+  "version": "1.0.0",
+  "description": "react-first",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ken12034/react-first.git"
+  },
+  "author": "ken",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ken12034/react-first/issues"
+  },
+  "homepage": "https://github.com/ken12034/react-first#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-hot-loader": "^1.4.2",
+    "css-loader": "^1.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-command": "^0.4.2",
+    "webpack-merge": "^4.2.1"
+  }
+}
