@@ -19,46 +19,49 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      },
-      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: [
-            {
-              loader: 'awesome-typescript-loader'
-            }
+          {
+            loader: 'awesome-typescript-loader'
+          }
         ]
       },
-      // {  //'style-loader', 由於某種原因不能共存
-      //   test: /\.css$/,
-      //   exclude: [/node_modules/],
+      // {
+      //   test: /\.css$/i,
       //   use: [
-      //     MiniCssExtractPlugin.loader,
       //     {
+      //       loader: MiniCssExtractPlugin.loader,
+      //     },
+      //     { 
       //       loader: "css-loader",
       //       options: {
       //         modules: true,
-      //         importLoaders: 1,
       //         localIdentName: "[name]__[local]__[hash:base64:5]",
-      //       },
-      //     }
-          
+      //       }
+      //     },
       //   ],
       // },
       {
         test: /\.(sass|scss)$/,
         exclude: [/node_modules/],
         use: [
-          // 'css-hot-loader',
-         MiniCssExtractPlugin.loader,
-          "css-modules-typescript-loader",
-          { loader: "css-loader", options: { modules: true } },
-          'sass-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: "typings-for-css-modules-loader",
+            options: {
+              modules: true,
+              namedExport: true,
+              camelCase: true,
+              sass: true,
+              localIdentName: "[name]__[local]__[hash:base64:5]"
+            }
+          },
+          {
+            loader: 'sass-loader',
+          },
         ]
       },
     ]

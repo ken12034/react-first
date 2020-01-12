@@ -1,15 +1,15 @@
 import * as React from "react";
-import styles from "../scss/index.scss";
+import * as styles from "../scss/index.scss";
+import Header from "./Header";
+import Content from "./container/Content";
 
-
-class App extends React.Component<{}, undefined> {
+class App extends React.Component<{}, any> {
     public render() {
         
         return (
             <div className={styles.main}>
-                <h1>Hello World!</h1>
-                <p>Foo to the barz</p>
-                
+                <Header></Header>
+                <Content favoritecolor="yellow"></Content>
             </div>
         );
     }
