@@ -76,6 +76,10 @@ module.exports = {
     alias: {
       '@src': path.resolve(__dirname, 'src'),
       '@scss': path.resolve(__dirname, 'src/scss'),
+      '@reducer': path.resolve(__dirname, 'src/reducers'),
+      '@api': path.resolve(__dirname, 'src/api'),
+      '@constant': path.resolve(__dirname, 'src/constants'),
+      '@action': path.resolve(__dirname, 'src/actions'),
     },
     modules: [
       path.resolve(__dirname, 'src/'),
