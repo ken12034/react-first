@@ -61,20 +61,24 @@ class ConnectedPostContnent extends React.Component < ComputeProps, ComputeState
   }
 
 
+  public shouldComponentUpdate(nextProps: ComputeProps, nextState: ComputeState): boolean {
+    console.log("post shouldComponentUpdate");
+    return true;
+  }
+
+  public componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void {
+    console.log("post componentDidUpdate");
+    console.log("post componentDidUpdate => " + snapshot);
+  }
 
   //The componentDidMount() method is called after the component is rendered
   public componentDidMount(): void {
     // call ajax api
     console.log("post componentDidMount");
-    this.props.addArticle({
-      title: "123"
-    });
+    // this.props.addArticle({
+    //   title: "title"
+    // });
     this.props.fetchPosts();
-  }
-
-  public shouldComponentUpdate(nextProps: ComputeProps, nextState: ComputeState): boolean {
-    console.log("post shouldComponentUpdate");
-    return true;
   }
 
   public getSnapshotBeforeUpdate(prevProps: ComputeProps, prevState: ComputeState): any {
@@ -87,13 +91,7 @@ class ConnectedPostContnent extends React.Component < ComputeProps, ComputeState
 
     return "getSnapshotBeforeUpdate";
   }
-  public componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void {
 
-    console.log("post componentDidUpdate");
-
-    console.log("post componentDidUpdate => " + snapshot);
-
-  }
 
   public changeColor = ():void => {
     this.setState({
@@ -151,8 +149,9 @@ class ConnectedPostContnent extends React.Component < ComputeProps, ComputeState
         </div>
         
         
-
-        {this.filterPosts()}
+        <div className={styles.postList}>
+          {this.filterPosts()}
+        </div>
 
         <div className={styles.colorContent}>
 
