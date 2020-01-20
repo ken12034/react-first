@@ -7,7 +7,6 @@ const initialState: any = {
 };
 
 function rootReducer(state = initialState, action: any) {
-  console.log(action);
   if (action.type === ADD_ARTICLE) {
     // state.articles.push(action.payload);
     return Object.assign({}, state, {

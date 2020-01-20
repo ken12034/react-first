@@ -19,10 +19,8 @@ export const fetchPosts = () => async (dispatch: any, getState: any) => {
       'Content-Type': 'application/json'
     },
   }).then(res => {
-    //console.log(res.json());
     return res.json()
   }).then(res2 => {
-    console.log(res2);
     dispatch({ type: FETCH_POSTS, payload: res2 });
   })
   //dispatch({ type: FETCH_POSTS,  payload: res  });

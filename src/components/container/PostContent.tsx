@@ -6,7 +6,7 @@ import { addArticle, fetchPosts } from "../../actions/index";
 
 
 interface ComputeProps {
-  favoritecolor : string;
+  articles: string;
   posts: any[];
   addArticle: any;
   fetchPosts: any;
@@ -16,9 +16,10 @@ interface ComputeState {
   favcol : string;
   isShowChild: boolean; 
   title: string;
-  posts: any[];
+  posts: any;
 }
 
+// set props to state
 const mapStateToProps = (state: any) => {
   return { 
     articles: state.articles,
@@ -26,33 +27,30 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-function mapDispatchToProps(dispatch: any) {
-  return {
-    addArticle: (article: any) => dispatch(addArticle(article)),
-    fetchPosts: (res: any) => dispatch(fetchPosts())
-  };
-}
+// function mapDispatchToProps(dispatch: any) {
+//   return {
+//     addArticle: (article: any) => dispatch(addArticle(article)),
+//     fetchPosts: (res: any) => dispatch(fetchPosts())
+//   };
+// }
 
-class ConnectedContnent extends React.Component < ComputeProps, ComputeState > {
+class ConnectedPostContnent extends React.Component < ComputeProps, ComputeState > {
   state = {
     favcol: "red",
     isShowChild: true,
     title: "",
-    posts: [""],
+    posts: [{}],
   }
   
   public constructor(props : any) {
     super(props);
-    console.log("constructor");
-    // this.state = {
-    //   favcol: "red" 
-    // };
+    console.log("post constructor");
   }
 
   
   //The getDerivedStateFromProps method is called right before the render method
   static getDerivedStateFromProps(nextProps : any, prevState : any) {
-    console.log("getDerivedStateFromProps");
+    console.log("post getDerivedStateFromProps");
     if (nextProps.articles !== prevState.title) {
       return {
         title: nextProps.articles,
@@ -67,7 +65,7 @@ class ConnectedContnent extends React.Component < ComputeProps, ComputeState > {
   //The componentDidMount() method is called after the component is rendered
   public componentDidMount(): void {
     // call ajax api
-    console.log("componentDidMount");
+    console.log("post componentDidMount");
     this.props.addArticle({
       title: "123"
     });
@@ -75,22 +73,25 @@ class ConnectedContnent extends React.Component < ComputeProps, ComputeState > {
   }
 
   public shouldComponentUpdate(nextProps: ComputeProps, nextState: ComputeState): boolean {
-    console.log("shouldComponentUpdate");
+    console.log("post shouldComponentUpdate");
     return true;
   }
 
-  // public getSnapshotBeforeUpdate(prevProps: ComputeProps, prevState: ComputeState): void {
-  //   document.getElementById("div1").innerHTML =
-  //   "Before the update, the favorite was " + prevState.favcol;
-  // }
-  public componentDidUpdate(prevProps: any, prevState: any): void {
-    // document.getElementById("div2").innerHTML =
-    // "The updated favorite is " + this.state.favcol;
-    console.log(prevProps);
+  public getSnapshotBeforeUpdate(prevProps: ComputeProps, prevState: ComputeState): any {
+    // before render
+    console.log("post getSnapshotBeforeUpdate");
 
-    console.log(prevState);
+    if (this.props.articles > prevProps.articles ) {
+      return this.props.articles;
+    }
 
-    console.log(this.state.title);  
+    return "getSnapshotBeforeUpdate";
+  }
+  public componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void {
+
+    console.log("post componentDidUpdate");
+
+    console.log("post componentDidUpdate => " + snapshot);
 
   }
 
@@ -108,9 +109,7 @@ class ConnectedContnent extends React.Component < ComputeProps, ComputeState > {
 
   public handleChange = (event: any): void => {
     event.preventDefault();
-    // const { title } = this.state;
     this.props.addArticle({ title: event.target.value });
-    // this.setState({ title: event.target.value });
   }
 
   public filterPosts = (): any => {
@@ -120,7 +119,6 @@ class ConnectedContnent extends React.Component < ComputeProps, ComputeState > {
       return null;
     }
     posts.map((post: any)=> {
-
       result.push(
         <ul key={post.key}>
           <li>{post.title}</li>
@@ -142,15 +140,17 @@ class ConnectedContnent extends React.Component < ComputeProps, ComputeState > {
 
 
   public render() {
-    console.log("render");
+    console.log("post render");
 
     return (
       <div className={styles.content}>
-
-        {this.showChild()}
-        <button type="button" onClick={this.showChildHandler}>Change Child</button>
-
-        <br/>
+        
+        <div className={styles.child}>
+          {this.showChild()}
+          <button type="button" onClick={this.showChildHandler}>Change Child</button>
+        </div>
+        
+        
 
         {this.filterPosts()}
 
@@ -165,19 +165,15 @@ class ConnectedContnent extends React.Component < ComputeProps, ComputeState > {
             id=""
             value={this.state.title}
             onChange={this.handleChange}
- 
           />
         </div>
-
-        <div id="div1"></div>
-        <div id="div2"></div>
       </div>
     );
   }
 }
 
 
-// const Contnent = connect(mapStateToProps)(ConnectedContnent);
-// const Contnent = connect(mapStateToProps, mapDispatchToProps)(ConnectedContnent);
-const Contnent = connect(mapStateToProps, mapDispatchToProps)(ConnectedContnent);
-export default Contnent;
+// const PostContent = connect(mapStateToProps)(ConnectedPostContnent);
+// const PostContent = connect(mapStateToProps, mapDispatchToProps)(ConnectedPostContnent);
+const PostContent = connect(mapStateToProps, {addArticle, fetchPosts})(ConnectedPostContnent);
+export default PostContent;
